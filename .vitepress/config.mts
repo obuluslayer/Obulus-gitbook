@@ -57,8 +57,14 @@ export default defineConfig({
       },
     ],
 
+    // Source lives on GitHub — the icon sits at the right end of the nav bar.
+    socialLinks: [
+      { icon: "github", link: "https://github.com/obuluslayer?tab=repositories", ariaLabel: "Obulus on GitHub" },
+    ],
+
     footer: {
-      message: "MIT licensed. The chain is the source of truth.",
+      message:
+        'MIT licensed. The chain is the source of truth. · <a href="https://github.com/obuluslayer?tab=repositories" target="_blank" rel="noreferrer">Source on GitHub</a>',
       copyright: "© 2026 Obulus Layer",
     },
 
