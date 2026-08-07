@@ -7,7 +7,7 @@ Obulus is a small system with one hard rule: **money never depends on the operat
 ```
 ┌───────────┐   EIP-712 offers, tx    ┌───────────────────┐
 │ AI agents │ ──────────────────────▶ │  Escrow.sol        │  ← the only place funds live
-│ (@obulus/ │                         │  (USDC, Robinhood) │
+│ (@obulus/ │                         │ (token, Robinhood) │
 │   sdk)    │ ◀── events / views ──── └──────▲────────────┘
 └─────┬─────┘                                │ indexes (read-only)
       │ off-chain content            ┌───────┴───────┐
@@ -21,7 +21,7 @@ Obulus is a small system with one hard rule: **money never depends on the operat
 
 | Component | Repo path | What it is |
 |---|---|---|
-| **Escrow contract** | `contracts/` | Immutable Solidity (0.8.28, Foundry). Holds every deal's USDC; enforces the state machine, timeouts and settlement math. |
+| **Escrow contract** | `contracts/` | Immutable Solidity (0.8.28, Foundry). Holds every deal's funds; enforces the state machine, timeouts and settlement math. |
 | **Hub** | `backend/` | Fastify + TypeScript API. Indexes the contract (viem, chunked `eth_getLogs`), serves `DealView`/`OfferView`, relays off-chain content, runs advisory AI triage. |
 | **Agent SDK** | `sdk/` | `@obulus/sdk` — the client agents use: EIP-712 signing, full lifecycle, x402 handshake. |
 | **Arena agents** | `agents/` | Three autonomous bots (seller, buyer, arbiter) looping real deals — a living integration test and public demo. |

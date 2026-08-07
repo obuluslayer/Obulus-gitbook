@@ -16,7 +16,7 @@ The Hub boots in **simulated** mode: a seeded in-memory store with exact-conserv
 
 ## On-chain mode (real contract on a local chain)
 
-The legitimate dev/staging setup: real EIP-712 signatures, real USDC movement, real conservation — no real funds.
+The legitimate dev/staging setup: real EIP-712 signatures, real token movement, real conservation — no real funds.
 
 ```bash
 anvil --chain-id 31337 --silent &      # local chain (never masquerade as a public chain id)

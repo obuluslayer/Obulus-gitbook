@@ -32,8 +32,8 @@ A deal starts life as a seller-signed, off-chain **Offer** (13 fields):
 | `seller` | address | provider — must equal the recovered signer |
 | `buyer` | address | designated buyer, or `address(0)` = open offer (anyone may fund) |
 | `arbiter` | address | this deal's bridled arbiter |
-| `token` | address | must equal the contract's immutable USDC |
-| `price` | uint256 | service price (USDC base-6) |
+| `token` | address | must equal the contract's immutable settlement token |
+| `price` | uint256 | service price (base-6) |
 | `buyerBond` | uint256 | buyer's anti-grief bond, escrowed at fund, returned on the happy path |
 | `sellerBond` | uint256 | seller's bond, posted at `markDelivered` |
 | `deliverDeadline` | uint64 | absolute timestamp the seller must deliver by |
@@ -49,7 +49,7 @@ A deal starts life as a seller-signed, off-chain **Offer** (13 fields):
 
 **Lifecycle** — `fund`, `markDelivered`, `confirm`, `claimTimeout`, `refundExpired`, `dispute`, `resolve(sellerBps)`, `resolveExpired` (see the state table above).
 
-**Money out** — `withdraw()`: every settlement credits `credits[account]`; parties pull at their leisure. Pull-payments mean a reverting or USDC-blocklisted party can never brick a counterparty's settlement.
+**Money out** — `withdraw()`: every settlement credits `credits[account]`; parties pull at their leisure. Pull-payments mean a reverting or token-blocklisted party can never brick a counterparty's settlement.
 
 **Offer management** — `cancelOffer(nonce)` invalidates an unfunded signed offer; `hashOffer(offer)` returns the digest (= future dealId); `getDeal(dealId)`, `domainSeparator()` and public getters (`usdc`, `feeBps`, `arbFeeBps`, `resolveTimeout`, `treasury`, `credits(addr)`, `cancelledNonce(seller, nonce)`) round out the read surface.
 
@@ -64,7 +64,7 @@ A deal starts life as a seller-signed, off-chain **Offer** (13 fields):
 | `resolveTimeout` | immutable per deployment, `0 < t ≤ 365 days` (runbook default: 7 days) |
 | Deploy defaults | `FEE_BPS=100` (1%), `ARB_FEE_BPS=2000` (20%), treasury → deployer unless set |
 
-Deploy scripts guard the network (`require(block.chainid == 46630)` for the Robinhood Chain testnet, `4663` for mainnet) and take the settlement token from the environment — `USDC_ADDRESS` points at an existing USDC deployment, or `USE_MOCK_USDC=true` deploys a freely-mintable `MockUSDC` (testnet liquidity for the arena bots). On mainnet (`4663`) the script refuses the mock fallback: `USDC_ADDRESS` is mandatory.
+Deploy scripts guard the network (`require(block.chainid == 46630)` for the Robinhood Chain testnet, `4663` for mainnet) and take the settlement token from the environment — `USDC_ADDRESS` points at an existing token deployment, or `USE_MOCK_USDC=true` deploys a freely-mintable `MockUSDC` (testnet liquidity for the arena bots). On mainnet (`4663`) the script refuses the mock fallback: `USDC_ADDRESS` is mandatory.
 
 ## Errors & events
 
@@ -76,7 +76,7 @@ Every transition emits an indexed event — `DealFunded`, `Delivered`, `Confirme
 
 - **`SubscriptionEscrow`** — Tier-3 recurring "rent" (prepaid periods, per-period optimistic claim/dispute, own EIP-712 domain `AgentSubscription`/`1`). Self-declared **DRAFT**: it must clear its own external audit before holding real funds.
 - **`StakingVault`** — standing slashable collateral. Only the arbiter of a currently-disputed deal can slash a party, capped at `slashCapBps` (≤ 50%), single-shot per deal, proceeds to the treasury (never the caller). Unstaking queues behind a `withdrawalDelay` enforced `> resolveTimeout`.
-- **`YieldVault`** — share-accounted vault for an agent's **own** idle USDC. Structurally unable to touch escrow funds (it holds no reference to any Escrow); pause blocks deposits only — exits always stay open.
+- **`YieldVault`** — share-accounted vault for an agent's **own** idle settlement token. Structurally unable to touch escrow funds (it holds no reference to any Escrow); pause blocks deposits only — exits always stay open.
 
 ## Test suite
 

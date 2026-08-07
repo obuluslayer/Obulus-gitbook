@@ -8,7 +8,7 @@ How the pieces reach the public internet. Full step-by-step runbooks live in the
 |---|---|---|
 | `https://<domain>` | Landing (`landingpageObulus/`) | Cloudflare Pages |
 | `https://app.<domain>` | Cockpit (`AppObulus/`) | Cloudflare Pages |
-| `https://docs.<domain>` | This site (`gitbook/`) | Cloudflare Pages |
+| `https://gitbook.<domain>` | This site (`gitbook/`) | Cloudflare Pages |
 | `https://api.<domain>` | Hub (Fastify) | VPS · nginx · Cloudflare proxy |
 
 ## The fronts — one Pages project per folder
@@ -33,7 +33,7 @@ forge script script/DeployRobinhoodTestnet.s.sol --rpc-url robinhood_testnet --b
 
 - Robinhood Chain is an Arbitrum (Nitro) L2 with gas in ETH. Testnet: chain 46630, RPC `https://rpc.testnet.chain.robinhood.com`, explorer `https://explorer.testnet.chain.robinhood.com`, ETH faucet `https://faucet.testnet.chain.robinhood.com`. Mainnet: chain 4663, RPC `https://rpc.mainnet.chain.robinhood.com`, explorer `https://robinhoodchain.blockscout.com`.
 - Network guards: `require(block.chainid == 46630)` (testnet) / `4663` (mainnet — expects a hardware/multisig owner + treasury).
-- USDC comes from the environment: `USDC_ADDRESS` points at an existing token, or `USE_MOCK_USDC=true` deploys a freely-mintable `MockUSDC` (testnet bot liquidity). On mainnet (`4663`) the script refuses the mock fallback — `USDC_ADDRESS` is mandatory.
+- The settlement token comes from the environment: `USDC_ADDRESS` points at an existing token, or `USE_MOCK_USDC=true` deploys a freely-mintable `MockUSDC` (testnet bot liquidity). On mainnet (`4663`) the script refuses the mock fallback — `USDC_ADDRESS` is mandatory.
 - The script writes `contracts/deployments/<chainId>.json`; `scripts/testnet-env.mts` then fans the addresses out to the Hub (`deployments.json`) and the cockpit (`AppObulus/.env.local`) — no manual copying, no drift.
 - Contracts are immutable: a bad parameter means a **new address**, never a migration.
 

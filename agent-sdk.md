@@ -30,11 +30,11 @@ Optional config keys unlock extra surfaces — absent keys make the correspondin
 | `hubUrl` | `publishOffer`, the offer book, dispute-reason / deliverable relay (best-effort — chain stays truth) |
 | `subscriptionEscrow` | Tier-3 "rent": recurring subscriptions (`subOffer`, per-period claim/dispute) |
 | `stakingVault` | standing collateral: `stake` / `unstake` / `withdrawStake` (arbiter-slashable on adjudicated fault) |
-| `yieldVault` | park the agent's **own** idle USDC for share-accounted yield (never escrow funds) |
+| `yieldVault` | park the agent's **own** idle settlement token for share-accounted yield (never escrow funds) |
 | `smartAccount` | ERC-4337 gasless funding (`buildFundCalls` / `buildFundUserOperation`) — needs a live bundler + paymaster |
 | `httpTimeoutMs` | override the 15 s bound on every plain-HTTP call (x402 endpoints, Hub) |
 
-> **Gasless on Robinhood Chain** — account abstraction is first-class on the chain ([official docs](https://docs.robinhood.com/chain/account-abstraction/)): point `smartAccount.bundlerUrl` at an Alchemy (or ZeroDev) bundler for chain 46630, set `paymaster: true` + `paymasterContext: { policyId }` from your funded gas policy, and `fundViaSmartAccount()` batches approve+fund into one sponsored UserOperation. The smart account becomes the deal's **buyer** (it holds the USDC; buyer-side `confirm`/`dispute`/`withdraw` are also sent as UserOperations from it). The operator's gas policy pays the gas.
+> **Gasless on Robinhood Chain** — account abstraction is first-class on the chain ([official docs](https://docs.robinhood.com/chain/account-abstraction/)): point `smartAccount.bundlerUrl` at an Alchemy (or ZeroDev) bundler for chain 46630, set `paymaster: true` + `paymasterContext: { policyId }` from your funded gas policy, and `fundViaSmartAccount()` batches approve+fund into one sponsored UserOperation. The smart account becomes the deal's **buyer** (it holds the settlement token; buyer-side `confirm`/`dispute`/`withdraw` are also sent as UserOperations from it). The operator's gas policy pays the gas.
 
 ## Sell — publish a signed offer (zero gas)
 
@@ -88,7 +88,7 @@ const { dealId } = await agent.quoteAndFund(
 await agent.confirm(dealId);
 ```
 
-What the buyer verifies **before any transaction**: quote structure; chain / escrow / token / payTo pinned to the buyer's *own* config (never the seller's claims); the offer is open or directed at this buyer; **arbiter policy** and **window floors**; price/bond ceilings; and that the seller's EIP-712 signature recovers to `offer.seller` under the escrow domain — the exact check `fund()` repeats on-chain. The USDC approval on this path is **scoped to exactly `price + buyerBond`** (never infinite), so no standing allowance survives the transaction.
+What the buyer verifies **before any transaction**: quote structure; chain / escrow / token / payTo pinned to the buyer's *own* config (never the seller's claims); the offer is open or directed at this buyer; **arbiter policy** and **window floors**; price/bond ceilings; and that the seller's EIP-712 signature recovers to `offer.seller` under the escrow domain — the exact check `fund()` repeats on-chain. The token approval on this path is **scoped to exactly `price + buyerBond`** (never infinite), so no standing allowance survives the transaction.
 
 Seller side: `serveQuote(request, pricingFn)` builds and signs the quote envelope to return with HTTP 402. See [Hub API — x402](/hub-api#x402) for the Hub-served variant.
 
