@@ -1,0 +1,12 @@
+node_modules/
+dist/
+
+# VitePress build output + dev cache
+.vitepress/dist/
+.vitepress/cache/
+
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store

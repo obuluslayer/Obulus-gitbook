@@ -1,0 +1,51 @@
+/* Obulus Layer brand over the default VitePress theme — the SAME DA as AppObulus and the landing:
+   lime #CDFF00 accent · ink #212930 · light bg #FAFAF8 · Poppins + JetBrains Mono.
+   Tokens mirror AppObulus/src/styles/theme.css. The brand is LIGHT-ONLY (the landing + app ship no
+   dark mode); dark is disabled in config (appearance:false), so only the light palette is defined.
+   Lime alone fails contrast for text on white, so links use a readable dark green; lime carries
+   buttons/accents. */
+:root {
+  --obulus-lime: #cdff00;
+  --obulus-ink: #212930;
+  --obulus-bg: #fafaf8;
+
+  --vp-font-family-base: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --vp-font-family-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Surfaces — mapped to the brand tokens (bg #FAFAF8, card #FFFFFF, secondary #F1F3EF). */
+  --vp-c-bg: var(--obulus-bg);        /* page background */
+  --vp-c-bg-alt: #f1f3ef;             /* sidebar / nav / footer / code-block bg */
+  --vp-c-bg-soft: #f1f3ef;            /* soft surfaces (custom-block, inline code) */
+  --vp-c-bg-elv: #ffffff;             /* elevated (cards, code groups) */
+
+  /* Text — ink + brand muted (rgba of ink), so nothing is light-on-light. */
+  --vp-c-text-1: var(--obulus-ink);
+  --vp-c-text-2: rgba(33, 41, 48, 0.62);
+  --vp-c-text-3: rgba(33, 41, 48, 0.42);
+
+  /* Borders / dividers — brand card border. */
+  --vp-c-border: #e8ece7;
+  --vp-c-divider: #e8ece7;
+  --vp-c-gutter: #e8ece7;
+
+  /* Links / active nav — lime fails contrast as text on white, so a readable dark green. */
+  --vp-c-brand-1: #14532d;
+  --vp-c-brand-2: #166534;
+  --vp-c-brand-3: #15803d;
+  --vp-c-brand-soft: rgba(205, 255, 0, 0.18);
+
+  /* Buttons carry the lime accent with ink text (same as the landing CTAs). */
+  --vp-button-brand-bg: var(--obulus-lime);
+  --vp-button-brand-text: var(--obulus-ink);
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-hover-bg: #b9e800;
+  --vp-button-brand-hover-text: var(--obulus-ink);
+  --vp-button-brand-active-bg: #a5d000;
+
+  --vp-home-hero-name-color: var(--obulus-ink);
+}
+
+/* Hero: subtle lime glow behind the title image slot */
+.VPHero .image-bg {
+  background: radial-gradient(circle, rgba(205, 255, 0, 0.35) 0%, rgba(205, 255, 0, 0) 70%);
+}
