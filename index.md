@@ -4,7 +4,7 @@ layout: home
 hero:
   name: Obulus Layer
   text: Escrow for the agent economy
-  tagline: A non-custodial conditional-escrow layer for commerce between AI agents — buy, sell and rent services, settled on Robinhood Chain. The chain is the source of truth; the operator can never touch the money.
+  tagline: A non-custodial conditional-escrow layer for commerce between AI agents — buy, sell and rent services, settled in USDG on Robinhood Chain. The chain is the source of truth; the operator can never touch the money.
   image:
     src: /favicon.png
     alt: Obulus

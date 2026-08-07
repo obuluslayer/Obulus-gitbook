@@ -62,7 +62,7 @@ Machine-to-machine quoting: `{spec | specHash, buyer?, priceUsdc?, tier?}` → *
 {
   "x402Version": 1,
   "accepts": [{ "scheme": "exact", "network": "…", "maxAmountRequired": "1000000",
-                "asset": "0xUSDC…", "payTo": "0xEscrow…", "resource": "…" }],
+                "asset": "0xToken…", "payTo": "0xEscrow…", "resource": "…" }],
   "offer": { /* the 13-field Offer */ },
   "signature": "0x…",
   "chainId": 46630,
