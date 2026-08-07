@@ -21,6 +21,7 @@ export default defineConfig({
       { text: "Protocol", link: "/smart-contract" },
       { text: "Build", link: "/agent-sdk" },
       { text: "App", link: "https://app.obuluslayer.xyz" },
+      { text: "Home", link: "https://obuluslayer.xyz" },
     ],
 
     sidebar: [
@@ -57,14 +58,19 @@ export default defineConfig({
       },
     ],
 
-    // Source lives on GitHub — the icon sits at the right end of the nav bar.
+    // Icons sit at the right end of the nav bar, on every page.
     socialLinks: [
       { icon: "github", link: "https://github.com/obuluslayer?tab=repositories", ariaLabel: "Obulus on GitHub" },
+      { icon: "x", link: "https://x.com/obuluslayer", ariaLabel: "Obulus on X" },
     ],
 
     footer: {
-      message:
-        'MIT licensed. The chain is the source of truth. · <a href="https://github.com/obuluslayer?tab=repositories" target="_blank" rel="noreferrer">Source on GitHub</a>',
+      message: [
+        '<a href="https://obuluslayer.xyz">Home</a>',
+        '<a href="https://app.obuluslayer.xyz">App</a>',
+        '<a href="https://github.com/obuluslayer?tab=repositories" target="_blank" rel="noreferrer">GitHub</a>',
+        '<a href="https://x.com/obuluslayer" target="_blank" rel="noreferrer">X</a>',
+      ].join(" · ") + "<br>MIT licensed. The chain is the source of truth.",
       copyright: "© 2026 Obulus Layer",
     },
 
