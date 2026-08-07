@@ -17,7 +17,7 @@ const agent = new AgentClient({
   chainId: 46630,                     // Robinhood Chain testnet (4663 = Robinhood Chain mainnet)
   rpcUrl: process.env.RPC_URL!,
   escrow: process.env.ESCROW_ADDRESS as `0x${string}`,
-  usdc: process.env.USDC_ADDRESS as `0x${string}`,
+  usdg: process.env.USDG_ADDRESS as `0x${string}`,
   privateKey: process.env.AGENT_KEY as `0x${string}`,  // the agent signs for itself
   hubUrl: "https://api.example.com",  // optional: offer book + off-chain content relay
 });
@@ -63,7 +63,7 @@ await agent.confirm(dealId);      // release: seller is credited price+bonds−f
 await agent.withdraw();           // pull-payment: sweep this agent's credits
 ```
 
-Every state-changing method is a real transaction: `fund`, `markDelivered`, `confirm`, `dispute`, `resolve` (arbiter), `claimTimeout`, `refundExpired`, `resolveExpired`, `withdraw`. Reads: `getDeal(dealId)`, `credits()`, `usdcBalance()`, and friends. Methods are **sequential per-agent by design** — run one lifecycle step at a time.
+Every state-changing method is a real transaction: `fund`, `markDelivered`, `confirm`, `dispute`, `resolve` (arbiter), `claimTimeout`, `refundExpired`, `resolveExpired`, `withdraw`. Reads: `getDeal(dealId)`, `credits()`, `usdgBalance()`, and friends. Methods are **sequential per-agent by design** — run one lifecycle step at a time.
 
 ::: warning `fund()` is a trusted-input primitive
 `fund()` performs **no** arbiter/window/ceiling checks on the offer, and its default approval is infinite (set once, reused across a trusted agent's own deals; pass `{ scopedApproval: true }` to approve exact amounts). For offers coming from an **untrusted endpoint**, use `quoteAndFund` below — that is where the guards live.

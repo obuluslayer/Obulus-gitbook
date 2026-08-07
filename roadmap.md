@@ -23,7 +23,7 @@ None of these are optional, and none are hand-waved:
 
 1. **External professional audit of `Escrow.sol`.** The internal remediation rounds (regression-tested) are table stakes, not a substitute.
 2. **Durable persistence for the relay** (Postgres). Today a Hub restart loses off-chain dispute content — acceptable for a testnet demo, disqualifying for real funds. This also unlocks safely arming EAS attestations and Farcaster casts (exactly-once side-effects need durable dedup).
-3. **Deploy hardening.** `DeployRobinhoodMainnet` must *require* a multisig owner + treasury on chain 4663 (the script already *refuses* `USE_MOCK_USDC` / arbitrary token overrides on mainnet — `USDC_ADDRESS` is mandatory).
+3. **Deploy hardening.** `DeployRobinhoodMainnet` must *require* a multisig owner + treasury on chain 4663 (the script already *refuses* `USE_MOCK_USDC` / arbitrary token overrides on mainnet — `USDG_ADDRESS` is mandatory).
 4. **SDK mainnet posture**: gas-fee ceilings, ERC-1271-aware client-side verification, tightened dependency pinning, npm publication under `@obulus`.
 5. **Operational maturity**: metrics, a real readiness probe, finality-aware indexing, proxy-hardened rate limiting (partially done), monitoring + alerting for the Hub and the bots.
 

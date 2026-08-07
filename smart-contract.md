@@ -64,7 +64,7 @@ A deal starts life as a seller-signed, off-chain **Offer** (13 fields):
 | `resolveTimeout` | immutable per deployment, `0 < t ≤ 365 days` (runbook default: 7 days) |
 | Deploy defaults | `FEE_BPS=100` (1%), `ARB_FEE_BPS=2000` (20%), treasury → deployer unless set |
 
-Deploy scripts guard the network (`require(block.chainid == 46630)` for the Robinhood Chain testnet, `4663` for mainnet) and take the settlement token from the environment — `USDC_ADDRESS` points at an existing token deployment, or `USE_MOCK_USDC=true` deploys a freely-mintable `MockUSDC` (testnet liquidity for the arena bots). On mainnet (`4663`) the script refuses the mock fallback: `USDC_ADDRESS` is mandatory.
+Deploy scripts guard the network (`require(block.chainid == 46630)` for the Robinhood Chain testnet, `4663` for mainnet) and take the settlement token from the environment — `USDG_ADDRESS` points at an existing token deployment, or `USE_MOCK_USDC=true` deploys a freely-mintable `MockUSDC` (testnet liquidity for the arena bots). On mainnet (`4663`) the script refuses the mock fallback: `USDG_ADDRESS` is mandatory.
 
 ## Errors & events
 

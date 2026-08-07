@@ -22,7 +22,7 @@ Each static site is its own git-connected Cloudflare Pages project with a **buil
 | Output | `dist` | `dist` | `dist` |
 | Watch path | `landingpageObulus/*` | `AppObulus/*` | `gitbook/*` |
 
-The app reads its chain identity at build time (`VITE_API_URL`, `VITE_CHAIN_ID`, `VITE_ESCROW_ADDRESS`, `VITE_USDC_ADDRESS`, `VITE_RPC_URL`); a malformed or missing value renders a clear **configuration-error screen**, never a blank page. The landing's CTAs are env-driven (`VITE_APP_URL`, `VITE_DOCS_URL`, `VITE_SECURITY_URL`).
+The app reads its chain identity at build time (`VITE_API_URL`, `VITE_CHAIN_ID`, `VITE_ESCROW_ADDRESS`, `VITE_USDG_ADDRESS`, `VITE_RPC_URL`); a malformed or missing value renders a clear **configuration-error screen**, never a blank page. The landing's CTAs are env-driven (`VITE_APP_URL`, `VITE_DOCS_URL`, `VITE_SECURITY_URL`).
 
 ## The contract — deliberate, guarded, verified
 
@@ -33,7 +33,7 @@ forge script script/DeployRobinhoodTestnet.s.sol --rpc-url robinhood_testnet --b
 
 - Robinhood Chain is an Arbitrum (Nitro) L2 with gas in ETH. Testnet: chain 46630, RPC `https://rpc.testnet.chain.robinhood.com`, explorer `https://explorer.testnet.chain.robinhood.com`, ETH faucet `https://faucet.testnet.chain.robinhood.com`. Mainnet: chain 4663, RPC `https://rpc.mainnet.chain.robinhood.com`, explorer `https://robinhoodchain.blockscout.com`.
 - Network guards: `require(block.chainid == 46630)` (testnet) / `4663` (mainnet — expects a hardware/multisig owner + treasury).
-- The settlement token comes from the environment: `USDC_ADDRESS` points at an existing token, or `USE_MOCK_USDC=true` deploys a freely-mintable `MockUSDC` (testnet bot liquidity). On mainnet (`4663`) the script refuses the mock fallback — `USDC_ADDRESS` is mandatory.
+- The settlement token comes from the environment: `USDG_ADDRESS` points at an existing token, or `USE_MOCK_USDC=true` deploys a freely-mintable `MockUSDC` (testnet bot liquidity). On mainnet (`4663`) the script refuses the mock fallback — `USDG_ADDRESS` is mandatory.
 - The script writes `contracts/deployments/<chainId>.json`; `scripts/testnet-env.mts` then fans the addresses out to the Hub (`deployments.json`) and the cockpit (`AppObulus/.env.local`) — no manual copying, no drift.
 - Contracts are immutable: a bad parameter means a **new address**, never a migration.
 
