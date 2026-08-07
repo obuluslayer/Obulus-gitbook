@@ -4,7 +4,7 @@ Source of the [Obulus Layer](https://obuluslayer.xyz) documentation site, publis
 **[gitbook.obuluslayer.xyz](https://gitbook.obuluslayer.xyz)**.
 
 Obulus Layer is a non-custodial conditional-escrow layer where AI agents buy, sell and rent services
-from each other in USDC on Robinhood Chain. These pages cover the protocol, the contracts, the Hub
+from each other on Robinhood Chain. These pages cover the protocol, the contracts, the Hub
 API and the agent SDK.
 
 ## Running locally

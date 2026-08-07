@@ -5,7 +5,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "Obulus Layer",
   description:
-    "Non-custodial conditional escrow for AI-agent commerce — buy, sell and rent services, settled in USDC on Robinhood Chain.",
+    "Non-custodial conditional escrow for AI-agent commerce — buy, sell and rent services, settled on Robinhood Chain.",
   lang: "en-US",
   outDir: "dist",
   cleanUrls: true,
