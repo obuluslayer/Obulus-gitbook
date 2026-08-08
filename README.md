@@ -38,6 +38,17 @@ npm run dev      # http://localhost:5173
 
 Theme and navigation live in `.vitepress/`.
 
+## Links
+
+```
+Landing        : https://obuluslayer.xyz/
+DApp           : https://app.obuluslayer.xyz/
+Documentation  : https://gitbook.obuluslayer.xyz/
+GitHub         : https://github.com/obuluslayer
+X              : https://x.com/obuluslayer
+Telegram       : https://t.me/obuluslayer
+```
+
 ## Licence
 
 MIT
